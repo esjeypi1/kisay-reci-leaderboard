@@ -4,7 +4,7 @@
 // HTML), counts up once when scrolled into view, animates from the old value (with a flash)
 // when it changes after a refresh, and stays static under reduced motion.
 import React, { useEffect, useLayoutEffect, useRef } from "react";
-import { animate, motion, useMotionValue, useReducedMotion, useTransform } from "motion/react";
+import { animate } from "motion";
 import { cn } from "@/lib/utils";
 
 const formatValue = (val: number, precision: number, sep: string): string =>
@@ -32,9 +32,7 @@ export function CountUp({
   className,
 }: CountUpProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const reduceMotion = useReducedMotion();
-  const count = useMotionValue(value);
-  const display = useTransform(count, (latest) => formatValue(latest, decimals, separator));
+  const numberRef = useRef<HTMLSpanElement>(null);
 
   // The value shown before this render's change; null until the first count.
   const previous = useRef<number | null>(null);
@@ -43,15 +41,20 @@ export function CountUp({
     const from = previous.current;
     previous.current = value;
 
-    if (reduceMotion) {
-      count.set(value);
+    // Writes straight to the DOM so counting never re-renders React.
+    const show = (n: number) => {
+      if (numberRef.current) numberRef.current.textContent = formatValue(n, decimals, separator);
+    };
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      show(value);
       return;
     }
 
     // Later changes (after a refresh) animate from the old value and flash once.
     if (from !== null) {
       if (from === value) return;
-      const controls = animate(count, value, { duration: 0.6, ease: [0.16, 1, 0.3, 1] });
+      show(from);
+      const controls = animate(from, value, { duration: 0.6, ease: [0.16, 1, 0.3, 1], onUpdate: show });
       const el = ref.current;
       el?.classList.remove("points-flash");
       void el?.offsetWidth;
@@ -62,13 +65,13 @@ export function CountUp({
     // First view: count up from zero once the number scrolls into view.
     let controls: { stop: () => void } | undefined;
     let started = false;
-    count.set(0);
+    show(0);
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
         observer.disconnect();
         started = true;
-        controls = animate(count, value, { duration, delay, ease: [0.16, 1, 0.3, 1] });
+        controls = animate(0, value, { duration, delay, ease: [0.16, 1, 0.3, 1], onUpdate: show });
       },
       { threshold: 0.1 },
     );
@@ -77,15 +80,17 @@ export function CountUp({
     return () => {
       observer.disconnect();
       controls?.stop();
-      count.set(value);
+      show(value);
       // Torn down before it ever counted (e.g. a dev double-run): count again next time.
       if (!started) previous.current = null;
     };
-  }, [value, duration, delay, reduceMotion, count]);
+  }, [value, duration, delay, decimals, separator]);
 
   return (
     <span ref={ref} className={cn("inline-flex tabular-nums", className)}>
-      <motion.span aria-hidden="true">{display}</motion.span>
+      <span ref={numberRef} aria-hidden="true">
+        {formatValue(value, decimals, separator)}
+      </span>
       <span className="sr-only">{formatValue(value, decimals, separator)}</span>
     </span>
   );

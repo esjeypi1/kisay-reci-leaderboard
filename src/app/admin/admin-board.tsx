@@ -109,12 +109,12 @@ export function AdminBoard({ roster, initialSlug }: { roster: RosterSection[]; i
   return (
     <div className="flex flex-1 flex-col">
       <header className="sticky top-0 z-30 border-b border-border bg-background">
-        <div className="mx-auto flex h-14 max-w-3xl items-center justify-between gap-2 px-4">
+        <div className="mx-auto flex min-h-14 max-w-3xl flex-wrap items-center justify-between gap-x-2 px-4">
           <h1 className="min-w-0 truncate">
             <span className="sr-only">Points admin: </span>
             <span className="text-lg font-semibold tracking-tight">{section?.name}</span>
           </h1>
-          <div className="flex items-center gap-1">
+          <div className="flex flex-wrap items-center gap-1">
             <a
               href="/"
               target="_blank"
@@ -173,7 +173,7 @@ export function AdminBoard({ roster, initialSlug }: { roster: RosterSection[]; i
               {girls.length > 0 && (
                 <a
                   href="#girls"
-                  className="inline-flex h-11 items-center rounded-lg px-3 text-sm font-medium text-accent hover:bg-accent-soft"
+                  className="inline-flex h-11 shrink-0 items-center whitespace-nowrap rounded-lg px-3 text-sm font-medium text-accent hover:bg-accent-soft"
                 >
                   Go to girls
                 </a>
@@ -267,12 +267,12 @@ function RosterGroup({
   if (students.length === 0) return null;
   return (
     <section id={id} aria-label={title} className="mt-6 scroll-mt-32">
-      <h3 className="mb-2 text-sm font-semibold text-muted-foreground">{title}</h3>
+      <h2 className="mb-2 text-sm font-semibold text-muted-foreground">{title}</h2>
       <ul className="divide-y divide-border rounded-xl border border-border bg-surface">
         {students.map((s) => {
           const value = points[s.id] ?? 0;
           return (
-            <li key={s.id} className="flex min-h-[4.25rem] items-center gap-2 py-2 pl-4 pr-2">
+            <li key={s.id} className="flex min-h-[4.25rem] flex-wrap items-center gap-x-2 gap-y-1 py-2 pl-4 pr-2">
               <span className="w-12 shrink-0 font-mono text-lg font-semibold">{s.classNumber}</span>
               <span className="flex flex-1 items-baseline gap-1">
                 <span
@@ -283,31 +283,33 @@ function RosterGroup({
                 </span>
                 <span className="text-xs text-muted-foreground">pts</span>
               </span>
-              <button
-                type="button"
-                onClick={() => onEdit(s)}
-                aria-label={`Edit ${s.classNumber}`}
-                className="grid size-12 place-items-center rounded-lg text-muted-foreground transition-colors hover:bg-surface-sunken hover:text-foreground active:scale-95"
-              >
-                <PencilSimple size={20} weight="bold" aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                onClick={() => onAdjust(s, -1)}
-                disabled={value === 0}
-                aria-label={`Remove 1 point from ${s.classNumber}`}
-                className="inline-flex h-12 w-14 items-center justify-center gap-0.5 rounded-lg border border-border-strong font-mono text-lg font-semibold text-foreground transition-[transform,opacity] active:scale-95 disabled:opacity-35"
-              >
-                <Minus size={16} weight="bold" aria-hidden="true" />1
-              </button>
-              <button
-                type="button"
-                onClick={() => onAdjust(s, 1)}
-                aria-label={`Add 1 point to ${s.classNumber}`}
-                className="ml-1 inline-flex h-12 w-[4.5rem] items-center justify-center gap-0.5 rounded-lg bg-accent font-mono text-lg font-semibold text-accent-foreground transition-transform active:scale-95"
-              >
-                <Plus size={18} weight="bold" aria-hidden="true" />1
-              </button>
+              <div className="ml-auto flex flex-wrap items-center justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => onEdit(s)}
+                  aria-label={`Edit ${s.classNumber}`}
+                  className="grid size-12 place-items-center rounded-lg text-muted-foreground transition-colors hover:bg-surface-sunken hover:text-foreground active:scale-95"
+                >
+                  <PencilSimple size={20} weight="bold" aria-hidden="true" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onAdjust(s, -1)}
+                  disabled={value === 0}
+                  aria-label={`Remove 1 point from ${s.classNumber}`}
+                  className="inline-flex h-12 w-14 items-center justify-center gap-0.5 rounded-lg border border-border-strong font-mono text-lg font-semibold text-foreground transition-[transform,opacity] active:scale-95 disabled:opacity-35"
+                >
+                  <Minus size={16} weight="bold" aria-hidden="true" />1
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onAdjust(s, 1)}
+                  aria-label={`Add 1 point to ${s.classNumber}`}
+                  className="inline-flex h-12 w-[4.5rem] items-center justify-center gap-0.5 rounded-lg bg-accent font-mono text-lg font-semibold text-accent-foreground transition-transform active:scale-95"
+                >
+                  <Plus size={18} weight="bold" aria-hidden="true" />1
+                </button>
+              </div>
             </li>
           );
         })}
