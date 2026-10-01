@@ -81,6 +81,11 @@ const SheetContent = ({ side = "bottom", className, children, initialFocus, ...p
   // Portals need document.body, which only exists after hydration.
   const mounted = React.useSyncExternalStore(subscribeNoop, () => true, () => false);
 
+  // Always calls the latest onOpenChange without making it an effect dependency: parents
+  // pass a new arrow on every render, which would otherwise re-run the effect and yank
+  // focus back to the first field while someone is typing.
+  const close = React.useEffectEvent(() => setOpen(false));
+
   React.useEffect(() => {
     if (!open) return;
     const previouslyFocused = document.activeElement as HTMLElement | null;
@@ -95,7 +100,7 @@ const SheetContent = ({ side = "bottom", className, children, initialFocus, ...p
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         e.preventDefault();
-        setOpen(false);
+        close();
         return;
       }
       if (e.key !== "Tab" || !panelRef.current) return;
@@ -119,7 +124,7 @@ const SheetContent = ({ side = "bottom", className, children, initialFocus, ...p
       document.body.style.overflow = overflow;
       previouslyFocused?.focus?.();
     };
-  }, [open, setOpen, initialFocus]);
+  }, [open, initialFocus]);
 
   if (!mounted) return null;
 

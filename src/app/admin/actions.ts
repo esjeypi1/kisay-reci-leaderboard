@@ -26,9 +26,10 @@ function isId(value: unknown): value is number {
   return Number.isSafeInteger(value) && (value as number) > 0;
 }
 
+// Only the public page needs refreshing: the admin screen already shows the new total
+// optimistically, and revalidating /admin would re-render the full roster on every tap.
 function afterWrite() {
   revalidatePath("/");
-  revalidatePath("/admin");
 }
 
 export async function login(_prev: LoginState, formData: FormData): Promise<LoginState> {

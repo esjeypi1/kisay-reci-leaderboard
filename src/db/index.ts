@@ -7,7 +7,8 @@ function createDb() {
   const url = process.env.DATABASE_URL;
   if (!url) throw new Error("DATABASE_URL is not set");
   // prepare: false keeps this compatible with Neon's pooled (PgBouncer) connection string.
-  const client = postgres(url, { prepare: false, max: 1 });
+  // A few connections per instance so concurrent page views don't queue on one socket.
+  const client = postgres(url, { prepare: false, max: 3 });
   return drizzle(client, { schema });
 }
 
