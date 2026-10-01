@@ -19,7 +19,7 @@ export function RankChip({ rank, tied, size = "md" }: { rank: number; tied: bool
       )}
     >
       {tied && (
-        <span aria-hidden="true" className="mr-px text-[0.72em] font-medium opacity-70">
+        <span aria-hidden="true" className="mr-px text-[0.75em] font-semibold">
           T
         </span>
       )}
@@ -54,6 +54,7 @@ export function BoardRow({
   size?: "md" | "lg";
 }) {
   const delay = index * 0.028 + 0.08;
+  const podium = size === "lg" && entry.rank <= 3;
   return (
     <li
       className={cn(
@@ -64,14 +65,19 @@ export function BoardRow({
     >
       <RankChip rank={entry.rank} tied={tied} size={size} />
       <span className={cn("min-w-0 truncate", size === "lg" ? "text-base lg:text-lg" : "text-[15px] lg:text-[17px]")}>
-        {showSection && <span className="text-muted-foreground">{entry.section} · </span>}
+        {showSection && (
+          <span className={podium ? "text-foreground" : "text-muted-foreground"}>{entry.section} · </span>
+        )}
         <span className="font-mono font-semibold">{entry.classNumber}</span>
       </span>
       <span className="flex items-baseline gap-1">
         <CountUp
           value={entry.points}
           delay={delay}
-          className={cn("font-mono font-semibold", size === "lg" ? "text-lg lg:text-2xl" : "text-base lg:text-lg")}
+          className={cn(
+            "font-mono font-semibold",
+            podium ? "text-2xl lg:text-[1.75rem]" : size === "lg" ? "text-lg lg:text-2xl" : "text-base lg:text-lg",
+          )}
         />
         <span className="text-xs text-muted-foreground">pts</span>
       </span>

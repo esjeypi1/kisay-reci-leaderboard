@@ -1,7 +1,8 @@
 // Skeleton of the admin roster, shown while it loads.
 export default function AdminLoading() {
   return (
-    <div className="flex flex-1 flex-col" aria-busy="true">
+    <main className="flex flex-1 flex-col" aria-busy="true">
+      <h1 className="sr-only">Points admin</h1>
       <p className="sr-only" role="status">
         Loading the roster
       </p>
@@ -26,6 +27,6 @@ export default function AdminLoading() {
           ))}
         </div>
       </div>
-    </div>
+    </main>
   );
 }

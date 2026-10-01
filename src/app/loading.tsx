@@ -20,7 +20,8 @@ function SkeletonBoard({ rows, className = "" }: { rows: number; className?: str
 
 export default function Loading() {
   return (
-    <div className="flex flex-1 flex-col" aria-busy="true">
+    <main className="flex flex-1 flex-col" aria-busy="true">
+      <h1 className="sr-only">Recitation Points</h1>
       <p className="sr-only" role="status">
         Loading the leaderboard
       </p>
@@ -36,6 +37,6 @@ export default function Loading() {
           ))}
         </div>
       </div>
-    </div>
+    </main>
   );
 }

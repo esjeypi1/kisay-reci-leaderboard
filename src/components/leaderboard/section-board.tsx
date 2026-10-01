@@ -16,9 +16,9 @@ export function SectionBoard({ board, offset }: { board: SectionBoardData; offse
       className="scroll-mt-20 rounded-xl border border-border bg-surface"
     >
       <header className="flex items-baseline justify-between gap-3 border-b border-border px-4 py-3">
-        <h3 id={headingId} className="font-semibold tracking-tight lg:text-lg">
+        <h4 id={headingId} className="font-semibold tracking-tight lg:text-lg">
           {board.section}
-        </h3>
+        </h4>
         <p className="text-sm text-muted-foreground">{board.entries.length > 5 ? "Top 5, ties included" : "Top 5"}</p>
       </header>
       {board.entries.length === 0 ? (

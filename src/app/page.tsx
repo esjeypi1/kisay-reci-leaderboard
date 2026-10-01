@@ -13,6 +13,10 @@ export default async function Home() {
   const { overall, sections } = await getLeaderboard();
   const asOf = timeFormat.format(new Date());
   const empty = overall.length === 0;
+  const grades = [...new Set(sections.map((s) => s.gradeLevel))].map((grade) => ({
+    grade,
+    boards: sections.filter((s) => s.gradeLevel === grade),
+  }));
 
   return (
     <div className="flex flex-1 flex-col">
@@ -30,11 +34,16 @@ export default async function Home() {
             section, listed by section and class number.
           </p>
         </div>
-        <div className="flex items-center gap-3">
-          <p className="text-sm text-muted-foreground">
-            As of <time className="font-mono font-medium text-foreground tabular-nums">{asOf}</time>
+        <div className="flex flex-col gap-3 lg:items-end">
+          <p className="hidden text-sm text-muted-foreground lg:block">
+            Top {OVERALL_CUTOFF} overall · Top {SECTION_CUTOFF} in each of the {sections.length} sections
           </p>
-          <RefreshButton />
+          <div className="flex items-center gap-3">
+            <p className="text-sm text-muted-foreground">
+              As of <time className="font-mono font-medium text-foreground tabular-nums">{asOf}</time>
+            </p>
+            <RefreshButton />
+          </div>
         </div>
       </header>
 
@@ -75,10 +84,21 @@ export default async function Home() {
               <OverallBoard entries={overall} />
             </div>
             <div className="lg:col-span-7">
-              <h2 className="mb-4 text-lg font-semibold tracking-tight lg:sr-only">Section top 5</h2>
-              <div className="grid grid-cols-1 items-start gap-4 sm:grid-cols-2 lg:gap-5">
-                {sections.map((board, i) => (
-                  <SectionBoard key={board.section} board={board} offset={i * SECTION_CUTOFF} />
+              <h2 className="sr-only">Section top 5</h2>
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:gap-5">
+                {grades.map(({ grade, boards }) => (
+                  <section key={grade} aria-labelledby={`grade-${grade}`} className="flex flex-col gap-4 lg:gap-5">
+                    <h3 id={`grade-${grade}`} className="text-sm font-semibold text-muted-foreground">
+                      Grade {grade}
+                    </h3>
+                    {boards.map((board) => (
+                      <SectionBoard
+                        key={board.section}
+                        board={board}
+                        offset={sections.indexOf(board) * SECTION_CUTOFF}
+                      />
+                    ))}
+                  </section>
                 ))}
               </div>
             </div>
@@ -88,11 +108,8 @@ export default async function Home() {
 
       <footer className="border-t border-border">
         <div className="mx-auto flex max-w-[1400px] flex-col gap-1 px-4 py-6 text-sm text-muted-foreground md:px-6 lg:flex-row lg:justify-between">
-          <p>
-            The top {OVERALL_CUTOFF} overall and the top {SECTION_CUTOFF} of each section, listed by
-            section and class number.
-          </p>
           <p>Tied students share a rank, marked T. Ties at a cutoff are all listed.</p>
+          <p>Students with no points yet are not listed.</p>
         </div>
       </footer>
     </div>

@@ -36,6 +36,18 @@ export function AdminBoard({ roster, initialSlug }: { roster: RosterSection[]; i
 
   const section = roster.find((s) => s.slug === slug) ?? roster[0];
 
+  /** "9-Kepler · B4", so feedback names the right student even after switching sections. */
+  const label = useCallback(
+    (id: number) => {
+      for (const s of roster) {
+        const st = s.students.find((x) => x.id === id);
+        if (st) return `${s.name} · ${st.classNumber}`;
+      }
+      return "Student";
+    },
+    [roster],
+  );
+
   const toast = useCallback((variant: ToastItem["variant"], message: string) => {
     const id = ++toastId.current;
     setToasts((t) => [...t.slice(-2), { id, variant, message, loginLink: message === SESSION_EXPIRED }]);
@@ -70,15 +82,14 @@ export function AdminBoard({ roster, initialSlug }: { roster: RosterSection[]; i
 
       if (result.ok) {
         if (pending.current[id] === 0) setPointsState((p) => ({ ...p, [id]: result.points }));
-        const student = roster.flatMap((s) => s.students).find((s) => s.id === id);
-        if (student) setAnnouncement(`${student.classNumber}: ${result.points} points`);
+        setAnnouncement(`${label(id)}: ${result.points} points`);
       } else {
         setPointsState((p) => ({ ...p, [id]: undo(p[id]) }));
-        toast("error", result.error);
+        toast("error", result.error === SESSION_EXPIRED ? result.error : `${label(id)}: ${result.error}`);
       }
       return result;
     },
-    [toast, roster],
+    [toast, label],
   );
 
   // Keep the current section's chip visible (also on a ?s= deep link).
@@ -90,7 +101,7 @@ export function AdminBoard({ roster, initialSlug }: { roster: RosterSection[]; i
 
   const adjust = (student: RosterStudent, delta: number) => {
     if ((points[student.id] ?? 0) + delta < 0) {
-      toast("error", `${student.classNumber} already has 0 points.`);
+      toast("error", `${label(student.id)} already has 0 points.`);
       return;
     }
     void run(student.id, (p) => p + delta, (p) => p - delta, () => adjustPoints(student.id, delta));
@@ -208,13 +219,13 @@ export function AdminBoard({ roster, initialSlug }: { roster: RosterSection[]; i
         onClose={() => setEditing(null)}
         onAdd={async (student, amount) => {
           const r = await run(student.id, (p) => p + amount, (p) => p - amount, () => adjustPoints(student.id, amount));
-          if (r.ok) toast("success", `Added ${amount} to ${student.classNumber}. New total: ${r.points}.`);
+          if (r.ok) toast("success", `Added ${amount} to ${label(student.id)}. New total: ${r.points}.`);
           return r.ok;
         }}
         onSet={async (student, total) => {
           const previous = points[student.id] ?? 0;
           const r = await run(student.id, () => total, () => previous, () => setPoints(student.id, total));
-          if (r.ok) toast("success", `${student.classNumber} total set to ${r.points}.`);
+          if (r.ok) toast("success", `${label(student.id)} total set to ${r.points}.`);
           return r.ok;
         }}
       />
