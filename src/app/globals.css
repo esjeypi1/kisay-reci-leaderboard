@@ -1,26 +1,155 @@
 @import "tailwindcss";
 
+/*
+  Theme tokens. Light is the default (projected in lit classrooms);
+  dark follows the system preference.
+*/
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --background: #f6f6f7;
+  --surface: #fdfdfd;
+  --surface-sunken: #efeff1;
+  --foreground: #18181b;
+  --muted-foreground: #5c5c66;
+  --faint-foreground: #75757f;
+  --border: #e3e3e7;
+  --border-strong: #cfcfd6;
+  --grid-line: #e6e6ea;
+  --accent: #1f4fd8;
+  --accent-foreground: #fdfdfd;
+  --accent-soft: #e7edfc;
+  --danger: #b42318;
+  --danger-soft: #fdecea;
+  --success: #12733f;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --gold: #7a5600;
+  --gold-soft: #fbefc8;
+  --silver: #3f4652;
+  --silver-soft: #e8eaee;
+  --bronze: #7c3f16;
+  --bronze-soft: #f7e2d3;
+
+  --shadow-color: 240 6% 20%;
+  color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0d0d10;
+    --surface: #141418;
+    --surface-sunken: #1b1b20;
+    --foreground: #ececef;
+    --muted-foreground: #a3a3ad;
+    --faint-foreground: #8b8b96;
+    --border: #26262d;
+    --border-strong: #34343c;
+    --grid-line: #1d1d23;
+    --accent: #7ea2ff;
+    --accent-foreground: #0d0d10;
+    --accent-soft: #1a2442;
+    --danger: #ff8a7a;
+    --danger-soft: #3a1714;
+    --success: #6fd49b;
+
+    --gold: #f3cd5c;
+    --gold-soft: #3a2f0c;
+    --silver: #d3d8e0;
+    --silver-soft: #2a2d33;
+    --bronze: #eba77a;
+    --bronze-soft: #3b2214;
+
+    --shadow-color: 240 30% 2%;
+    color-scheme: dark;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-faint-foreground: var(--faint-foreground);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-soft: var(--accent-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-success: var(--success);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-silver: var(--silver);
+  --color-silver-soft: var(--silver-soft);
+  --color-bronze: var(--bronze);
+  --color-bronze-soft: var(--bronze-soft);
+  --color-ring: var(--accent);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "ss01";
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  input {
+    caret-color: var(--accent);
+  }
+
+  * {
+    scrollbar-color: var(--border-strong) transparent;
+  }
+}
+
+/* Leaderboard rows enter in rank order once, from CSS so content never waits for JS. */
+@media (prefers-reduced-motion: no-preference) {
+  .row-enter {
+    animation: row-enter 520ms var(--ease-out-expo) both;
+    animation-delay: calc(var(--i, 0) * 28ms + 80ms);
+  }
+}
+
+@keyframes row-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Admin: a changed total briefly takes the accent color as feedback. */
+@media (prefers-reduced-motion: no-preference) {
+  .points-flash {
+    animation: points-flash 700ms var(--ease-out-expo);
+  }
+}
+
+@keyframes points-flash {
+  from {
+    color: var(--accent);
+    transform: scale(1.08);
+  }
 }
