@@ -53,7 +53,9 @@ export function BoardRow({
   showSection: boolean;
   size?: "md" | "lg";
 }) {
-  const delay = index * 0.028 + 0.08;
+  // Stagger the first rows only, so the whole board settles in under ~900ms.
+  const step = Math.min(index, 8);
+  const delay = step * 0.028 + 0.08;
   const podium = size === "lg" && entry.rank <= 3;
   return (
     <li
@@ -61,7 +63,7 @@ export function BoardRow({
         "row-enter grid grid-cols-[auto_1fr_auto] items-center gap-3 px-4",
         size === "lg" ? "min-h-14 lg:min-h-15" : "min-h-12 lg:min-h-13",
       )}
-      style={{ "--i": index } as React.CSSProperties}
+      style={{ "--i": step } as React.CSSProperties}
     >
       <RankChip rank={entry.rank} tied={tied} size={size} />
       <span className={cn("min-w-0 truncate", size === "lg" ? "text-base lg:text-lg" : "text-[15px] lg:text-[17px]")}>
@@ -74,6 +76,7 @@ export function BoardRow({
         <CountUp
           value={entry.points}
           delay={delay}
+          duration={0.6}
           className={cn(
             "font-mono font-semibold",
             podium ? "text-2xl lg:text-[1.75rem]" : size === "lg" ? "text-lg lg:text-2xl" : "text-base lg:text-lg",

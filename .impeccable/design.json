@@ -1,0 +1,632 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-01T15:08:34+00:00",
+  "title": "Design System: Recitation Points",
+  "extensions": {
+    "colorMeta": {
+      "accent": {
+        "role": "primary",
+        "displayName": "Classroom Cobalt",
+        "canonical": "#1f4fd8",
+        "darkValue": "#7ea2ff",
+        "cssVar": "--accent",
+        "oklch": "oklch(49.1% 0.216 264.5)",
+        "tonalRamp": [
+          "#020824",
+          "#041a62",
+          "#092da9",
+          "#2050d9",
+          "#3f75ff",
+          "#659dff",
+          "#9fc8ff",
+          "#daefff"
+        ]
+      },
+      "accent-foreground": {
+        "role": "primary",
+        "displayName": "On Cobalt",
+        "canonical": "#fdfdfd",
+        "darkValue": "#0d0d10",
+        "cssVar": "--accent-foreground",
+        "oklch": "oklch(99.4% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "accent-soft": {
+        "role": "primary",
+        "displayName": "Cobalt Wash",
+        "canonical": "#e7edfc",
+        "darkValue": "#1a2442",
+        "cssVar": "--accent-soft",
+        "oklch": "oklch(94.6% 0.021 268.4)",
+        "tonalRamp": [
+          "#0a0b0e",
+          "#22252b",
+          "#3d424d",
+          "#5c616e",
+          "#7d8290",
+          "#a0a5b2",
+          "#c5c9d2",
+          "#edeef3"
+        ]
+      },
+      "gold": {
+        "role": "secondary",
+        "displayName": "Medal Gold",
+        "canonical": "#7a5600",
+        "darkValue": "#f3cd5c",
+        "cssVar": "--gold",
+        "oklch": "oklch(47.9% 0.099 80.4)",
+        "tonalRamp": [
+          "#110a01",
+          "#342100",
+          "#5b3b00",
+          "#7e5a08",
+          "#a17b35",
+          "#c39f61",
+          "#dec69e",
+          "#f8edda"
+        ]
+      },
+      "gold-soft": {
+        "role": "secondary",
+        "displayName": "Gold Leaf Wash",
+        "canonical": "#fbefc8",
+        "darkValue": "#3a2f0c",
+        "cssVar": "--gold-soft",
+        "oklch": "oklch(95.2% 0.052 92.9)",
+        "tonalRamp": [
+          "#0d0b05",
+          "#2a2513",
+          "#4b4123",
+          "#6b613e",
+          "#8d825e",
+          "#afa583",
+          "#d0c9b3",
+          "#f2eee4"
+        ]
+      },
+      "silver": {
+        "role": "secondary",
+        "displayName": "Medal Silver",
+        "canonical": "#27364d",
+        "darkValue": "#dbe4f2",
+        "cssVar": "--silver",
+        "oklch": "oklch(33.1% 0.046 258.7)",
+        "tonalRamp": [
+          "#080b11",
+          "#1d2532",
+          "#344358",
+          "#52627b",
+          "#72839e",
+          "#95a6c0",
+          "#bfcadb",
+          "#e9eff7"
+        ]
+      },
+      "silver-soft": {
+        "role": "secondary",
+        "displayName": "Silver Wash",
+        "canonical": "#d9e1ec",
+        "darkValue": "#2b3445",
+        "cssVar": "--silver-soft",
+        "oklch": "oklch(90.7% 0.017 256.3)",
+        "tonalRamp": [
+          "#070b12",
+          "#20262e",
+          "#3c434b",
+          "#5b626b",
+          "#7c838d",
+          "#9ea6b0",
+          "#c2cad5",
+          "#e7effa"
+        ]
+      },
+      "bronze": {
+        "role": "secondary",
+        "displayName": "Medal Bronze",
+        "canonical": "#7c3f16",
+        "darkValue": "#eba77a",
+        "cssVar": "--bronze",
+        "oklch": "oklch(43.8% 0.099 50.6)",
+        "tonalRamp": [
+          "#140802",
+          "#3b1b06",
+          "#67310a",
+          "#8d4f27",
+          "#b27049",
+          "#d49470",
+          "#eabfa7",
+          "#ffeade"
+        ]
+      },
+      "bronze-soft": {
+        "role": "secondary",
+        "displayName": "Bronze Wash",
+        "canonical": "#f7e2d3",
+        "darkValue": "#3b2214",
+        "cssVar": "--bronze-soft",
+        "oklch": "oklch(92.6% 0.031 57.9)",
+        "tonalRamp": [
+          "#0e0a08",
+          "#2c231c",
+          "#4e3e33",
+          "#6f5d50",
+          "#917e71",
+          "#b3a194",
+          "#d3c6be",
+          "#f3ede9"
+        ]
+      },
+      "background": {
+        "role": "neutral",
+        "displayName": "Chalk Zinc",
+        "canonical": "#f6f6f7",
+        "darkValue": "#0d0d10",
+        "cssVar": "--background",
+        "oklch": "oklch(97.3% 0.001 286.4)",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#252526",
+          "#424243",
+          "#616162",
+          "#828283",
+          "#a5a5a6",
+          "#c9c9ca",
+          "#eeeeef"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Paper Surface",
+        "canonical": "#fdfdfd",
+        "darkValue": "#141418",
+        "cssVar": "--surface",
+        "oklch": "oklch(99.4% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "surface-sunken": {
+        "role": "neutral",
+        "displayName": "Sunken Zinc",
+        "canonical": "#efeff1",
+        "darkValue": "#1b1b20",
+        "cssVar": "--surface-sunken",
+        "oklch": "oklch(95.3% 0.003 286.3)",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#252526",
+          "#424243",
+          "#616163",
+          "#828284",
+          "#a5a5a7",
+          "#c9c9cb",
+          "#eeeef0"
+        ]
+      },
+      "foreground": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#18181b",
+        "darkValue": "#ececef",
+        "cssVar": "--foreground",
+        "oklch": "oklch(21.0% 0.006 285.9)",
+        "tonalRamp": [
+          "#0b0b0e",
+          "#252528",
+          "#424245",
+          "#616164",
+          "#828286",
+          "#a4a4a9",
+          "#c9c9cd",
+          "#eeeef2"
+        ]
+      },
+      "muted-foreground": {
+        "role": "neutral",
+        "displayName": "Graphite",
+        "canonical": "#5c5c66",
+        "darkValue": "#a3a3ad",
+        "cssVar": "--muted-foreground",
+        "oklch": "oklch(47.8% 0.016 285.8)",
+        "tonalRamp": [
+          "#0a0a12",
+          "#24242d",
+          "#41414a",
+          "#60606a",
+          "#81818c",
+          "#a4a4af",
+          "#c8c8d3",
+          "#ededf9"
+        ]
+      },
+      "faint-foreground": {
+        "role": "neutral",
+        "displayName": "Faint Graphite",
+        "canonical": "#6b6b75",
+        "darkValue": "#8b8b96",
+        "cssVar": "--faint-foreground",
+        "oklch": "oklch(53.1% 0.015 285.9)",
+        "tonalRamp": [
+          "#0a0a11",
+          "#24242c",
+          "#41414a",
+          "#60606a",
+          "#81818b",
+          "#a4a4af",
+          "#c8c8d3",
+          "#ededf9"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#e3e3e7",
+        "darkValue": "#26262d",
+        "cssVar": "--border",
+        "oklch": "oklch(91.7% 0.005 286.3)",
+        "tonalRamp": [
+          "#0b0b0d",
+          "#252528",
+          "#424245",
+          "#616164",
+          "#828285",
+          "#a4a4a8",
+          "#c9c9cc",
+          "#eeeef2"
+        ]
+      },
+      "border-strong": {
+        "role": "neutral",
+        "displayName": "Hairline Strong",
+        "canonical": "#cfcfd6",
+        "darkValue": "#34343c",
+        "cssVar": "--border-strong",
+        "oklch": "oklch(85.7% 0.010 286.2)",
+        "tonalRamp": [
+          "#0b0b0f",
+          "#24242a",
+          "#414147",
+          "#606067",
+          "#828288",
+          "#a4a4ab",
+          "#c8c8cf",
+          "#eeeef5"
+        ]
+      },
+      "danger": {
+        "role": "status",
+        "displayName": "Signal Red",
+        "canonical": "#b42318",
+        "darkValue": "#ff8a7a",
+        "cssVar": "--danger",
+        "oklch": "oklch(50.0% 0.182 29.5)",
+        "tonalRamp": [
+          "#1c0201",
+          "#4d0000",
+          "#850000",
+          "#b12015",
+          "#da4a3b",
+          "#fc7664",
+          "#ffae9f",
+          "#ffe3db"
+        ]
+      },
+      "success": {
+        "role": "status",
+        "displayName": "Signal Green",
+        "canonical": "#12733f",
+        "darkValue": "#6fd49b",
+        "cssVar": "--success",
+        "oklch": "oklch(49.0% 0.118 153.4)",
+        "tonalRamp": [
+          "#010f05",
+          "#002e14",
+          "#005224",
+          "#147440",
+          "#409760",
+          "#6bb985",
+          "#a6d7b4",
+          "#dff5e4"
+        ]
+      }
+    },
+    "themes": {
+      "default": "light",
+      "dark": "prefers-color-scheme: dark; values in colorMeta.*.darkValue",
+      "source": "src/app/globals.css :root, mapped into Tailwind v4 via @theme inline"
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "H1 only; 2rem mobile, 2.25rem md, 3rem lg, leading-tight, -0.03em."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Overall board title; 1.125rem rising to 1.25rem at lg."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Section board titles, admin header, sheet title; 1rem rising to 1.125rem at lg."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Descriptive copy (max 60ch) and row labels."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Buttons, chips, form labels, meta lines, group labels."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "Every rank, class number, total, input value, and time; tabular."
+      },
+      "numeral-lead": {
+        "displayName": "Numeral Lead",
+        "purpose": "Totals for ranks 1-3 on the overall board; admin roster totals at 1.5rem."
+      },
+      "unit": {
+        "displayName": "Unit",
+        "purpose": "The 'pts' suffix in Graphite, baseline-aligned after each total."
+      }
+    },
+    "shadows": [
+      {
+        "name": "shadow-color",
+        "value": "240 6% 20% (light) / 240 30% 2% (dark)",
+        "purpose": "HSL triplet that tints every shadow and the scrim."
+      },
+      {
+        "name": "sheet-lift",
+        "value": "0 -12px 40px -12px hsl(var(--shadow-color) / 0.35)",
+        "purpose": "Bottom sheet only."
+      },
+      {
+        "name": "toast-lift",
+        "value": "0 10px 30px -10px hsl(var(--shadow-color) / 0.35)",
+        "purpose": "Toasts only."
+      },
+      {
+        "name": "scrim",
+        "value": "hsl(var(--shadow-color) / 0.45)",
+        "purpose": "Backdrop behind the sheet; no blur."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The one easing curve: row entrance, count-up, points-flash."
+      },
+      {
+        "name": "row-enter",
+        "value": "520ms ease-out-expo, opacity 0 and translateY(6px) to rest; delay min(index, 8)*28ms + 80ms",
+        "purpose": "Rows enter once in rank order; CSS-driven so content never waits on JS."
+      },
+      {
+        "name": "count-up",
+        "value": "600ms ease-out-expo from 0, same per-row delay; 600ms from old value after refresh",
+        "purpose": "Point totals settle into place (adapted Lightswind count-up)."
+      },
+      {
+        "name": "points-flash",
+        "value": "700ms ease-out-expo, from accent color and scale(1.08)",
+        "purpose": "Admin feedback when a total changes."
+      },
+      {
+        "name": "press",
+        "value": "scale(0.98); 0.95 on compact admin point buttons",
+        "purpose": "Active state for every button and chip."
+      },
+      {
+        "name": "sheet-spring",
+        "value": "spring damping 32, stiffness 380; scrim fade 200ms",
+        "purpose": "Bottom sheet entrance."
+      },
+      {
+        "name": "toast-spring",
+        "value": "spring damping 26, stiffness 380; from y 12px, scale 0.97",
+        "purpose": "Toast entrance and exit."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "no movement; 150ms opacity fades for sheet and toast; final values rendered",
+        "purpose": "All motion gated on prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      }
+    ],
+    "containers": [
+      {
+        "name": "public",
+        "value": "1400px"
+      },
+      {
+        "name": "admin",
+        "value": "768px"
+      },
+      {
+        "name": "sheet",
+        "value": "512px"
+      },
+      {
+        "name": "toast",
+        "value": "384px"
+      }
+    ],
+    "icons": {
+      "library": "Phosphor (@phosphor-icons/react)",
+      "weight": "bold for controls, fill for toast status",
+      "sizes": "14-20px"
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Cobalt action button: Add, Log in, Try again.",
+      "html": "<button class=\"ds-btn-primary\">Add</button>",
+      "css": ".ds-btn-primary { height: 48px; padding: 0 20px; border: none; border-radius: 8px; background: var(--accent); color: var(--accent-foreground); font-family: var(--font-geist-sans), Geist, ui-sans-serif, system-ui, sans-serif; font-size: 16px; font-weight: 600; cursor: pointer; transition: transform 150ms cubic-bezier(0.16,1,0.3,1), opacity 150ms; } .ds-btn-primary:active { transform: scale(0.98); } .ds-btn-primary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; } .ds-btn-primary:disabled { opacity: 0.6; }"
+    },
+    {
+      "name": "Secondary Button (Refresh)",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Outlined surface button with a bold 16px icon; border strengthens on hover.",
+      "html": "<button class=\"ds-btn-secondary\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 256 256\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M244,56v48a12,12,0,0,1-12,12H184a12,12,0,1,1,0-24H201.1l-19-17.38c-.13-.12-.26-.24-.38-.37A76,76,0,1,0,127,204h1a75.53,75.53,0,0,0,52.15-20.72,12,12,0,0,1,16.49,17.45A99.45,99.45,0,0,1,128,228h-1.37A100,100,0,1,1,198.51,57.06L220,76.72V56a12,12,0,0,1,24,0Z\"/></svg>Refresh</button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--foreground); font-family: var(--font-geist-sans), Geist, ui-sans-serif, system-ui, sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: border-color 150ms, transform 150ms; } .ds-btn-secondary:hover { border-color: var(--border-strong); } .ds-btn-secondary:active { transform: scale(0.98); } .ds-btn-secondary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Header links and icon buttons; fills Sunken Zinc on hover.",
+      "html": "<button class=\"ds-btn-ghost\">Log out</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px; border: none; border-radius: 8px; background: transparent; color: var(--muted-foreground); font-family: var(--font-geist-sans), Geist, ui-sans-serif, system-ui, sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; } .ds-btn-ghost:hover { background: var(--surface-sunken); color: var(--foreground); } .ds-btn-ghost:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }"
+    },
+    {
+      "name": "Section Chips",
+      "kind": "chip",
+      "refersTo": "chip-nav",
+      "description": "Jump nav and admin section switcher; the current section fills cobalt.",
+      "html": "<ul class=\"ds-chips\"><li><button class=\"ds-chip\" aria-current=\"true\">9-Kepler</button></li><li><button class=\"ds-chip\">9-Linnaeus</button></li><li><button class=\"ds-chip\">9-Mendeleev</button></li></ul>",
+      "css": ".ds-chips { display: flex; gap: 8px; list-style: none; margin: 0; padding: 0; } .ds-chip { height: 44px; padding: 0 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--foreground); font-family: var(--font-geist-sans), Geist, ui-sans-serif, system-ui, sans-serif; font-size: 14px; font-weight: 600; white-space: nowrap; cursor: pointer; transition: border-color 150ms, transform 150ms; } .ds-chip:hover { border-color: var(--border-strong); } .ds-chip:active { transform: scale(0.98); } .ds-chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; } .ds-chip[aria-current=\"true\"] { background: var(--accent); border-color: var(--accent); color: var(--accent-foreground); }"
+    },
+    {
+      "name": "Rank Chips",
+      "kind": "custom",
+      "refersTo": "rank-chip",
+      "description": "Signature mark: mono tabular rank; medal washes for 1-3; T prefix marks a tie.",
+      "html": "<div class=\"ds-ranks\"><span class=\"ds-rank ds-rank-1\">1</span><span class=\"ds-rank ds-rank-2\">2</span><span class=\"ds-rank ds-rank-3\"><span class=\"ds-rank-t\">T</span>3</span><span class=\"ds-rank\"><span class=\"ds-rank-t\">T</span>6</span><span class=\"ds-rank\">12</span></div>",
+      "css": ".ds-ranks { display: flex; gap: 8px; } .ds-rank { display: inline-flex; align-items: center; justify-content: center; height: 28px; min-width: 40px; padding: 0 6px; border-radius: 8px; background: var(--surface-sunken); color: var(--muted-foreground); font-family: var(--font-geist-mono), 'Geist Mono', ui-monospace, monospace; font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; } .ds-rank-t { margin-right: 1px; font-size: 0.75em; } .ds-rank-1 { background: var(--gold-soft); color: var(--gold); box-shadow: inset 0 0 0 1px color-mix(in srgb, currentColor 20%, transparent); } .ds-rank-2 { background: var(--silver-soft); color: var(--silver); box-shadow: inset 0 0 0 1px color-mix(in srgb, currentColor 20%, transparent); } .ds-rank-3 { background: var(--bronze-soft); color: var(--bronze); box-shadow: inset 0 0 0 1px color-mix(in srgb, currentColor 20%, transparent); }"
+    },
+    {
+      "name": "Board Panel",
+      "kind": "card",
+      "refersTo": "board-panel",
+      "description": "A section board: 12px panel, hairline header rule, hairline-divided ranked rows.",
+      "html": "<section class=\"ds-panel\"><header class=\"ds-panel-head\"><h4>9-Kepler</h4><p>Top 5, ties included</p></header><ol class=\"ds-rows\"><li class=\"ds-row\"><span class=\"ds-rank ds-rank-1\">1</span><span class=\"ds-row-id\">B14</span><span class=\"ds-pts\"><b>21</b><small>pts</small></span></li><li class=\"ds-row\"><span class=\"ds-rank ds-rank-2\">2</span><span class=\"ds-row-id\">G17</span><span class=\"ds-pts\"><b>19</b><small>pts</small></span></li><li class=\"ds-row\"><span class=\"ds-rank ds-rank-3\"><span class=\"ds-rank-t\">T</span>3</span><span class=\"ds-row-id\">B9</span><span class=\"ds-pts\"><b>18</b><small>pts</small></span></li><li class=\"ds-row\"><span class=\"ds-rank\">5</span><span class=\"ds-row-id\">B15</span><span class=\"ds-pts\"><b>14</b><small>pts</small></span></li></ol></section>",
+      "css": ".ds-panel { max-width: 380px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); color: var(--foreground); font-family: var(--font-geist-sans), Geist, ui-sans-serif, system-ui, sans-serif; } .ds-panel-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--border); } .ds-panel-head h4 { margin: 0; font-size: 16px; font-weight: 600; letter-spacing: -0.025em; } .ds-panel-head p { margin: 0; font-size: 14px; color: var(--muted-foreground); } .ds-rows { list-style: none; margin: 0; padding: 4px 0; } .ds-row { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; min-height: 48px; padding: 0 16px; } .ds-row + .ds-row { border-top: 1px solid var(--border); } .ds-row-id { font-family: var(--font-geist-mono), 'Geist Mono', ui-monospace, monospace; font-size: 15px; font-weight: 600; } .ds-pts { display: flex; align-items: baseline; gap: 4px; } .ds-pts b { font-family: var(--font-geist-mono), 'Geist Mono', ui-monospace, monospace; font-size: 16px; font-weight: 600; font-variant-numeric: tabular-nums; } .ds-pts small { font-size: 12px; color: var(--muted-foreground); } .ds-rank { display: inline-flex; align-items: center; justify-content: center; height: 28px; min-width: 40px; padding: 0 6px; border-radius: 8px; background: var(--surface-sunken); color: var(--muted-foreground); font-family: var(--font-geist-mono), 'Geist Mono', ui-monospace, monospace; font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; } .ds-rank-t { margin-right: 1px; font-size: 0.75em; } .ds-rank-1 { background: var(--gold-soft); color: var(--gold); } .ds-rank-2 { background: var(--silver-soft); color: var(--silver); } .ds-rank-3 { background: var(--bronze-soft); color: var(--bronze); }"
+    },
+    {
+      "name": "Number Input",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Admin points field: mono value, cobalt border on focus, red border when invalid.",
+      "html": "<label class=\"ds-field\"><span>Add points</span><input class=\"ds-input\" inputmode=\"numeric\" placeholder=\"e.g. 5\"></label>",
+      "css": ".ds-field { display: flex; flex-direction: column; gap: 8px; font-family: var(--font-geist-sans), Geist, ui-sans-serif, system-ui, sans-serif; font-size: 14px; font-weight: 500; color: var(--foreground); } .ds-input { height: 48px; padding: 0 14px; border: 1px solid var(--border-strong); border-radius: 8px; background: var(--background); color: var(--foreground); font-family: var(--font-geist-mono), 'Geist Mono', ui-monospace, monospace; font-size: 18px; font-variant-numeric: tabular-nums; outline: none; } .ds-input::placeholder { font-family: var(--font-geist-sans), Geist, ui-sans-serif, system-ui, sans-serif; font-size: 16px; color: var(--faint-foreground); } .ds-input:focus { border-color: var(--accent); } .ds-input:focus-visible { outline: 2px solid var(--accent); outline-offset: 0; } .ds-input[aria-invalid=\"true\"] { border-color: var(--danger); }"
+    },
+    {
+      "name": "Admin Point Controls",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "One-tap -1 (outlined) and +1 (cobalt) controls, 48px tall, mono labels.",
+      "html": "<div class=\"ds-pt\"><button class=\"ds-pt-minus\" aria-label=\"Remove 1 point\">&minus;1</button><button class=\"ds-pt-plus\" aria-label=\"Add 1 point\">+1</button></div>",
+      "css": ".ds-pt { display: flex; gap: 8px; } .ds-pt button { height: 48px; border-radius: 8px; font-family: var(--font-geist-mono), 'Geist Mono', ui-monospace, monospace; font-size: 18px; font-weight: 600; cursor: pointer; transition: transform 150ms, opacity 150ms; } .ds-pt-minus { width: 56px; border: 1px solid var(--border-strong); background: transparent; color: var(--foreground); } .ds-pt-plus { width: 72px; border: none; background: var(--accent); color: var(--accent-foreground); } .ds-pt button:active { transform: scale(0.95); } .ds-pt button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; } .ds-pt button:disabled { opacity: 0.35; }"
+    },
+    {
+      "name": "Toast",
+      "kind": "custom",
+      "refersTo": "toast",
+      "description": "Bottom-center feedback; error variant has a red-tinted border and a 44px dismiss.",
+      "html": "<div class=\"ds-toast\" role=\"alert\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 256 256\" fill=\"currentColor\" class=\"ds-toast-icon\" aria-hidden=\"true\"><path d=\"M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm-8,56a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm8,104a12,12,0,1,1,12-12A12,12,0,0,1,128,184Z\"/></svg><div>9-Kepler &middot; B4 already has 0 points.</div><button class=\"ds-toast-x\" aria-label=\"Dismiss\">&times;</button></div>",
+      "css": ".ds-toast { position: relative; display: flex; align-items: flex-start; gap: 12px; max-width: 384px; padding: 12px 48px 12px 16px; border: 1px solid color-mix(in srgb, var(--danger) 40%, transparent); border-radius: 12px; background: var(--surface); color: var(--foreground); font-family: var(--font-geist-sans), Geist, ui-sans-serif, system-ui, sans-serif; font-size: 14px; box-shadow: 0 10px 30px -10px hsl(var(--shadow-color) / 0.35); } .ds-toast-icon { flex-shrink: 0; margin-top: 1px; color: var(--danger); } .ds-toast-x { position: absolute; right: 4px; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border: none; border-radius: 8px; background: transparent; color: var(--muted-foreground); font-size: 18px; cursor: pointer; } .ds-toast-x:hover { background: var(--surface-sunken); color: var(--foreground); } .ds-toast-x:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Contest Board",
+    "overview": "This is the category-standard leaderboard executed at full craft: ranked rows on hairline-divided panels, numerals set in a monospace with tabular figures, and almost no color. It borrows its discipline from contest boards (dense ranked rows, explicit ties) and its finish from restrained product UI (one sans family, careful tracking, both themes treated as equals). The data is the only ornament; nothing on the page exists to celebrate, only to report.\n\nThe world is quiet zinc. Light is the default because the board is projected in lit classrooms; dark follows the system preference with a full parallel token set. One cobalt accent marks focus, primary actions, and links. Gold, silver, and bronze appear only as data, tinting the rank chips for places 1 to 3. Depth is flat: panels are separated by 1px borders and a one-step tonal shift from page to surface, and shadows exist only on overlays.\n\nDensity is high but legible. Rows are at least 48px tall, every control clears a 44px touch floor (48px on the admin), and the type ramp is short. Motion is a single entrance (rows rise in rank order and points count up once) plus feedback on change; under reduced motion everything renders final.",
+    "keyCharacteristics": [
+      "Zinc neutrals, light default, full dark parity via `prefers-color-scheme`.",
+      "One cobalt accent; medal tints restricted to rank chips 1 to 3.",
+      "Geist for words, Geist Mono tabular numerals for every rank, class number, point total, and time.",
+      "1px hairline borders and row dividers; flat at rest.",
+      "Two radii: 8px controls and chips, 12px panels.",
+      "Ties are always visible: a small \"T\" prefix inside the rank chip."
+    ],
+    "rules": [
+      {
+        "name": "The Medal-As-Data Rule",
+        "body": "Gold, silver, and bronze tint only the rank chip for places 1, 2, and 3 (and the rank-1 favicon). They never color panels, headings, rows, or celebration graphics.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Cobalt Rule",
+        "body": "Cobalt means \"this is the action or the current focus.\" It is never a panel fill, a heading color, or a decorative stripe.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two-Theme Parity Rule",
+        "body": "Every color token has a light and a dark value in `:root`; components consume tokens only, so both themes ship from the same markup. Raster outputs (link preview, icons) use the light values as literals because they cannot follow a media query.",
+        "section": "colors"
+      },
+      {
+        "name": "The Mono Numerals Rule",
+        "body": "Every rank, class number, point total, input value, and time is Geist Mono, weight 600, tabular. Words are never set in the mono.",
+        "section": "typography"
+      },
+      {
+        "name": "The Short Ramp Rule",
+        "body": "Hierarchy comes from size steps within one family, weight 600 versus 400, and Ink versus Graphite. No uppercase labels, no letterspaced overlines.",
+        "section": "typography"
+      },
+      {
+        "name": "The Touch Floor Rule",
+        "body": "Every interactive control is at least 44px tall; admin point controls are 48px. Anchored panels carry an 80px scroll margin so the sticky nav never covers their headings.",
+        "section": "layout"
+      },
+      {
+        "name": "The Overlay-Only Shadow Rule",
+        "body": "Panels, rows, chips, and buttons have no shadow at rest or on hover. If it sits in the page flow, it is bordered, not lifted.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** set every rank, class number, point total, and time in Geist Mono 600 with tabular figures.",
+      "**Do** show ties explicitly with the \"T\" prefix in the rank chip, and list every tie at a cutoff.",
+      "**Do** keep medal tints on rank chips 1 to 3 only, each with its soft wash and inset 20% ring.",
+      "**Do** use Classroom Cobalt for the action or current focus only: primary buttons, the active chip, links, focus outlines, and the points-flash.",
+      "**Do** separate panels with 1px Hairline borders on Paper Surface over Chalk Zinc, and divide rows with 1px rules.",
+      "**Do** keep every control at least 44px tall (48px for admin point controls).",
+      "**Do** ship a dark value for every new color token and consume tokens, never literals, in components.",
+      "**Do** gate every movement behind `prefers-reduced-motion: no-preference` and render final values otherwise."
+    ],
+    "donts": [
+      "**Don't** add podium graphics, confetti, or hero-metric blocks; the ranked rows are the whole story.",
+      "**Don't** use school logos or school colors; the school and term appear in text only.",
+      "**Don't** put shadows on in-flow panels, rows, chips, or buttons; shadows belong to the sheet and toasts.",
+      "**Don't** add backdrop blur to overlays or toasts.",
+      "**Don't** introduce new radii; controls are 8px, containers 12px, and 6px is reserved for skeleton text bars.",
+      "**Don't** set words in Geist Mono or numerals in proportional Geist."
+    ]
+  }
+}
