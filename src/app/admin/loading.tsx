@@ -10,7 +10,7 @@ export default function AdminLoading() {
         <div className="mx-auto flex h-14 max-w-3xl items-center px-4">
           <div className="h-6 w-28 rounded-md bg-surface-sunken" />
         </div>
-        <div className="mx-auto flex max-w-3xl gap-2 px-4 pb-3">
+        <div className="mx-auto flex max-w-3xl gap-2 overflow-hidden px-4 pb-3">
           {Array.from({ length: 4 }, (_, i) => (
             <div key={i} className="h-11 w-28 shrink-0 rounded-lg bg-surface-sunken" />
           ))}
