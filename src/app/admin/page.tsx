@@ -3,7 +3,7 @@ import { getRoster } from "@/lib/admin-data";
 import { requireAdminPage } from "@/lib/session";
 import { AdminBoard } from "./admin-board";
 
-export const metadata: Metadata = { title: "Admin" };
+export const metadata: Metadata = { title: "Admin · Recitation Points" };
 
 export default async function AdminPage({ searchParams }: PageProps<"/admin">) {
   await requireAdminPage();

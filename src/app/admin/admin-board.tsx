@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Minus, PencilSimple, Plus, SignOut } from "@phosphor-icons/react";
 import { AnimatePresence } from "motion/react";
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/lightswind/sheet";
@@ -10,7 +10,9 @@ import { MAX_DELTA, MAX_POINTS } from "@/lib/points";
 import { cn } from "@/lib/utils";
 import { adjustPoints, logout, setPoints, type PointsResult } from "./actions";
 
-type ToastItem = { id: number; variant: "error" | "success"; message: string };
+type ToastItem = { id: number; variant: "error" | "success"; message: string; loginLink?: boolean };
+
+const SESSION_EXPIRED = "Your session expired. Log in again.";
 
 function parseWhole(value: string): number | null {
   const trimmed = value.trim();
@@ -27,6 +29,8 @@ export function AdminBoard({ roster, initialSlug }: { roster: RosterSection[]; i
   const [changed, setChanged] = useState<Record<number, number>>({});
   const [editing, setEditing] = useState<RosterStudent | null>(null);
   const [toasts, setToasts] = useState<ToastItem[]>([]);
+  const [announcement, setAnnouncement] = useState("");
+  const chipList = useRef<HTMLUListElement>(null);
   const pending = useRef<Record<number, number>>({});
   const toastId = useRef(0);
 
@@ -34,7 +38,7 @@ export function AdminBoard({ roster, initialSlug }: { roster: RosterSection[]; i
 
   const toast = useCallback((variant: ToastItem["variant"], message: string) => {
     const id = ++toastId.current;
-    setToasts((t) => [...t.slice(-2), { id, variant, message }]);
+    setToasts((t) => [...t.slice(-2), { id, variant, message, loginLink: message === SESSION_EXPIRED }]);
     setTimeout(() => setToasts((t) => t.filter((x) => x.id !== id)), variant === "error" ? 6000 : 3500);
   }, []);
 
@@ -66,14 +70,23 @@ export function AdminBoard({ roster, initialSlug }: { roster: RosterSection[]; i
 
       if (result.ok) {
         if (pending.current[id] === 0) setPointsState((p) => ({ ...p, [id]: result.points }));
+        const student = roster.flatMap((s) => s.students).find((s) => s.id === id);
+        if (student) setAnnouncement(`${student.classNumber}: ${result.points} points`);
       } else {
         setPointsState((p) => ({ ...p, [id]: undo(p[id]) }));
         toast("error", result.error);
       }
       return result;
     },
-    [toast],
+    [toast, roster],
   );
+
+  // Keep the current section's chip visible (also on a ?s= deep link).
+  useEffect(() => {
+    chipList.current
+      ?.querySelector<HTMLElement>('[aria-current="true"]')
+      ?.scrollIntoView({ inline: "center", block: "nearest" });
+  }, [slug]);
 
   const adjust = (student: RosterStudent, delta: number) => {
     if ((points[student.id] ?? 0) + delta < 0) {
@@ -95,9 +108,12 @@ export function AdminBoard({ roster, initialSlug }: { roster: RosterSection[]; i
 
   return (
     <div className="flex flex-1 flex-col">
-      <header className="sticky top-0 z-30 border-b border-border bg-background/95 supports-[backdrop-filter]:bg-background/85 supports-[backdrop-filter]:backdrop-blur">
+      <header className="sticky top-0 z-30 border-b border-border bg-background">
         <div className="mx-auto flex h-14 max-w-3xl items-center justify-between gap-2 px-4">
-          <h1 className="font-semibold tracking-tight">Points admin</h1>
+          <h1 className="min-w-0 truncate">
+            <span className="sr-only">Points admin: </span>
+            <span className="text-lg font-semibold tracking-tight">{section?.name}</span>
+          </h1>
           <div className="flex items-center gap-1">
             <a
               href="/"
@@ -121,7 +137,7 @@ export function AdminBoard({ roster, initialSlug }: { roster: RosterSection[]; i
           </div>
         </div>
         <nav aria-label="Sections" className="mx-auto max-w-3xl">
-          <ul className="flex snap-x gap-2 overflow-x-auto px-4 pb-3 [scrollbar-width:none]">
+          <ul ref={chipList} className="flex snap-x scroll-px-4 gap-2 overflow-x-auto px-4 pb-3 [scrollbar-width:none]">
             {roster.map((s) => {
               const active = s.slug === section?.slug;
               return (
@@ -149,14 +165,23 @@ export function AdminBoard({ roster, initialSlug }: { roster: RosterSection[]; i
       <main className="mx-auto w-full max-w-3xl flex-1 px-4 pb-28 pt-5">
         {section && (
           <>
-            <div className="flex items-baseline justify-between gap-4">
-              <h2 className="text-2xl font-semibold tracking-tight">{section.name}</h2>
+            <div className="flex items-center justify-between gap-4">
               <p className="text-sm text-muted-foreground">
-                {section.students.length} students · <span className="font-mono tabular-nums">{sectionTotal}</span> pts
+                {section.students.length} students ·{" "}
+                <span className="font-mono tabular-nums">{sectionTotal}</span> pts total
               </p>
+              {girls.length > 0 && (
+                <a
+                  href="#girls"
+                  className="inline-flex h-11 items-center rounded-lg px-3 text-sm font-medium text-accent hover:bg-accent-soft"
+                >
+                  Go to girls
+                </a>
+              )}
             </div>
             <RosterGroup
               title="Boys"
+              id="boys"
               students={boys}
               points={points}
               changed={changed}
@@ -165,6 +190,7 @@ export function AdminBoard({ roster, initialSlug }: { roster: RosterSection[]; i
             />
             <RosterGroup
               title="Girls"
+              id="girls"
               students={girls}
               points={points}
               changed={changed}
@@ -202,16 +228,28 @@ export function AdminBoard({ roster, initialSlug }: { roster: RosterSection[]; i
               onClose={() => setToasts((all) => all.filter((x) => x.id !== t.id))}
             >
               {t.message}
+              {t.loginLink && (
+                <>
+                  {" "}
+                  <a href="/admin/login" className="font-semibold text-accent underline underline-offset-2">
+                    Log in
+                  </a>
+                </>
+              )}
             </Toast>
           ))}
         </AnimatePresence>
       </ToastViewport>
+      <p className="sr-only" role="status" aria-live="polite">
+        {announcement}
+      </p>
     </div>
   );
 }
 
 function RosterGroup({
   title,
+  id,
   students,
   points,
   changed,
@@ -219,6 +257,7 @@ function RosterGroup({
   onEdit,
 }: {
   title: string;
+  id: string;
   students: RosterStudent[];
   points: Record<number, number>;
   changed: Record<number, number>;
@@ -227,9 +266,9 @@ function RosterGroup({
 }) {
   if (students.length === 0) return null;
   return (
-    <section aria-label={title} className="mt-6">
+    <section id={id} aria-label={title} className="mt-6 scroll-mt-32">
       <h3 className="mb-2 text-sm font-semibold text-muted-foreground">{title}</h3>
-      <ul className="divide-y divide-border rounded-2xl border border-border bg-surface">
+      <ul className="divide-y divide-border rounded-xl border border-border bg-surface">
         {students.map((s) => {
           const value = points[s.id] ?? 0;
           return (
@@ -239,17 +278,16 @@ function RosterGroup({
                 <span
                   key={changed[s.id] ?? 0}
                   className={cn("font-mono text-2xl font-semibold tabular-nums", changed[s.id] && "points-flash")}
-                  aria-live="polite"
                 >
                   {value}
                 </span>
-                <span className="text-xs text-faint-foreground">pts</span>
+                <span className="text-xs text-muted-foreground">pts</span>
               </span>
               <button
                 type="button"
                 onClick={() => onEdit(s)}
                 aria-label={`Edit ${s.classNumber}`}
-                className="grid size-12 place-items-center rounded-xl text-muted-foreground transition-colors hover:bg-surface-sunken hover:text-foreground active:scale-95"
+                className="grid size-12 place-items-center rounded-lg text-muted-foreground transition-colors hover:bg-surface-sunken hover:text-foreground active:scale-95"
               >
                 <PencilSimple size={20} weight="bold" aria-hidden="true" />
               </button>
@@ -258,15 +296,15 @@ function RosterGroup({
                 onClick={() => onAdjust(s, -1)}
                 disabled={value === 0}
                 aria-label={`Remove 1 point from ${s.classNumber}`}
-                className="grid size-12 place-items-center rounded-xl border border-border-strong text-foreground transition-[transform,opacity] active:scale-95 disabled:opacity-35"
+                className="inline-flex h-12 w-14 items-center justify-center gap-0.5 rounded-lg border border-border-strong font-mono text-lg font-semibold text-foreground transition-[transform,opacity] active:scale-95 disabled:opacity-35"
               >
-                <Minus size={20} weight="bold" aria-hidden="true" />
+                <Minus size={16} weight="bold" aria-hidden="true" />1
               </button>
               <button
                 type="button"
                 onClick={() => onAdjust(s, 1)}
                 aria-label={`Add 1 point to ${s.classNumber}`}
-                className="inline-flex h-12 w-[4.5rem] items-center justify-center gap-0.5 rounded-xl bg-accent font-mono text-lg font-semibold text-accent-foreground transition-transform active:scale-95"
+                className="ml-1 inline-flex h-12 w-[4.5rem] items-center justify-center gap-0.5 rounded-lg bg-accent font-mono text-lg font-semibold text-accent-foreground transition-transform active:scale-95"
               >
                 <Plus size={18} weight="bold" aria-hidden="true" />1
               </button>
@@ -296,7 +334,7 @@ function EditSheet({
   const addRef = useRef<HTMLInputElement>(null);
   return (
     <Sheet open={student !== null} onOpenChange={(open) => !open && onClose()}>
-      <SheetContent side="bottom" initialFocus={addRef} className="mx-auto max-w-lg sm:bottom-4 sm:rounded-2xl sm:border">
+      <SheetContent side="bottom" initialFocus={addRef} className="mx-auto max-w-lg sm:bottom-4 sm:rounded-xl sm:border">
         {student && (
           <EditForms
             key={student.id}
@@ -437,7 +475,9 @@ function EditForms({
           </p>
         ) : (
           <p id="set-help" className="text-sm text-muted-foreground">
-            Replaces the current total. Use this to correct mistakes.
+            {parseWhole(setValue) !== null && parseWhole(setValue) !== currentPoints
+              ? `Changes the total from ${currentPoints} to ${parseWhole(setValue)}.`
+              : "Replaces the current total. Use this to correct mistakes."}
           </p>
         )}
       </form>

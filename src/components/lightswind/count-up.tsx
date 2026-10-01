@@ -1,7 +1,8 @@
 "use client";
 
 // Lightswind count-up, adapted: renders the final value on the server (no "0" in the
-// HTML), counts up once when scrolled into view, and stays static under reduced motion.
+// HTML), counts up once when scrolled into view, animates from the old value (with a flash)
+// when it changes after a refresh, and stays static under reduced motion.
 import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { animate, motion, useMotionValue, useReducedMotion, useTransform } from "motion/react";
 import { cn } from "@/lib/utils";
@@ -35,23 +36,39 @@ export function CountUp({
   const count = useMotionValue(value);
   const display = useTransform(count, (latest) => formatValue(latest, decimals, separator));
 
+  // The value shown before this render's change; null until the first count.
+  const previous = useRef<number | null>(null);
+
   useIsoLayoutEffect(() => {
+    const from = previous.current;
+    previous.current = value;
+
     if (reduceMotion) {
       count.set(value);
       return;
     }
 
+    // Later changes (after a refresh) animate from the old value and flash once.
+    if (from !== null) {
+      if (from === value) return;
+      const controls = animate(count, value, { duration: 0.6, ease: [0.16, 1, 0.3, 1] });
+      const el = ref.current;
+      el?.classList.remove("points-flash");
+      void el?.offsetWidth;
+      el?.classList.add("points-flash");
+      return () => controls.stop();
+    }
+
+    // First view: count up from zero once the number scrolls into view.
     let controls: { stop: () => void } | undefined;
+    let started = false;
     count.set(0);
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
         observer.disconnect();
-        controls = animate(count, value, {
-          duration,
-          delay,
-          ease: [0.16, 1, 0.3, 1],
-        });
+        started = true;
+        controls = animate(count, value, { duration, delay, ease: [0.16, 1, 0.3, 1] });
       },
       { threshold: 0.1 },
     );
@@ -61,6 +78,8 @@ export function CountUp({
       observer.disconnect();
       controls?.stop();
       count.set(value);
+      // Torn down before it ever counted (e.g. a dev double-run): count again next time.
+      if (!started) previous.current = null;
     };
   }, [value, duration, delay, reduceMotion, count]);
 

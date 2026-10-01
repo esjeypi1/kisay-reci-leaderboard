@@ -12,12 +12,17 @@ export function RankChip({ rank, tied, size = "md" }: { rank: number; tied: bool
   return (
     <span
       className={cn(
-        "inline-flex items-center justify-center rounded-md font-mono font-semibold tabular-nums",
-        size === "lg" ? "h-8 min-w-11 px-1.5 text-[15px] lg:h-9 lg:min-w-12 lg:text-base" : "h-7 min-w-10 px-1.5 text-sm",
+        "inline-flex items-center justify-center rounded-lg font-mono font-semibold tabular-nums",
+        size === "lg" ? "h-8 min-w-11 px-1.5 text-[15px] lg:h-9 lg:min-w-12 lg:text-base" : "h-7 min-w-10 px-1.5 text-sm lg:h-8 lg:min-w-11 lg:text-[15px]",
+        rank <= 3 && "ring-1 ring-inset ring-current/20",
         medal[rank] ?? "bg-surface-sunken text-muted-foreground",
       )}
     >
-      {tied && <span aria-hidden="true">T</span>}
+      {tied && (
+        <span aria-hidden="true" className="mr-px text-[0.72em] font-medium opacity-70">
+          T
+        </span>
+      )}
       {rank}
       <span className="sr-only">{tied ? `, tied for rank ${rank}` : `, rank ${rank}`}</span>
     </span>
@@ -53,12 +58,12 @@ export function BoardRow({
     <li
       className={cn(
         "row-enter grid grid-cols-[auto_1fr_auto] items-center gap-3 px-4",
-        size === "lg" ? "min-h-14 lg:min-h-15" : "min-h-12",
+        size === "lg" ? "min-h-14 lg:min-h-15" : "min-h-12 lg:min-h-13",
       )}
       style={{ "--i": index } as React.CSSProperties}
     >
       <RankChip rank={entry.rank} tied={tied} size={size} />
-      <span className={cn("min-w-0 truncate", size === "lg" ? "text-base lg:text-lg" : "text-[15px]")}>
+      <span className={cn("min-w-0 truncate", size === "lg" ? "text-base lg:text-lg" : "text-[15px] lg:text-[17px]")}>
         {showSection && <span className="text-muted-foreground">{entry.section} · </span>}
         <span className="font-mono font-semibold">{entry.classNumber}</span>
       </span>
@@ -66,9 +71,9 @@ export function BoardRow({
         <CountUp
           value={entry.points}
           delay={delay}
-          className={cn("font-mono font-semibold", size === "lg" ? "text-lg lg:text-2xl" : "text-base")}
+          className={cn("font-mono font-semibold", size === "lg" ? "text-lg lg:text-2xl" : "text-base lg:text-lg")}
         />
-        <span className="text-xs text-faint-foreground">pts</span>
+        <span className="text-xs text-muted-foreground">pts</span>
       </span>
     </li>
   );

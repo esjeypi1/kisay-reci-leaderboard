@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { isAdmin } from "@/lib/session";
 import { LoginForm } from "./login-form";
 
-export const metadata: Metadata = { title: "Admin login" };
+export const metadata: Metadata = { title: "Admin login · Recitation Points" };
 
 export default async function LoginPage() {
   if (await isAdmin()) redirect("/admin");

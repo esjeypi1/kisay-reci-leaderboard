@@ -4,12 +4,12 @@ import { BoardRow, tiedRanks } from "./board-row";
 export function OverallBoard({ entries }: { entries: BoardEntry[] }) {
   const tied = tiedRanks(entries);
   return (
-    <section aria-labelledby="overall-heading" className="rounded-2xl border border-border bg-surface">
+    <section id="overall" aria-labelledby="overall-heading" className="scroll-mt-20 rounded-xl border border-border bg-surface">
       <header className="flex items-baseline justify-between gap-4 border-b border-border px-4 py-4 lg:px-5">
         <h2 id="overall-heading" className="text-lg font-semibold tracking-tight lg:text-xl">
           Overall top 20
         </h2>
-        <p className="text-sm text-muted-foreground">All six sections</p>
+        <p className="text-sm text-muted-foreground">{tied.size > 0 ? "T = tied" : "All six sections"}</p>
       </header>
       {entries.length === 0 ? (
         <EmptyBoard message="No points recorded yet. The board fills in as recitation points are awarded." />

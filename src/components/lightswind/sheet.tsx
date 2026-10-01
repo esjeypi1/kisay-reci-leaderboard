@@ -152,7 +152,7 @@ const SheetContent = ({ side = "bottom", className, children, initialFocus, ...p
             className={cn(
               "fixed z-50 bg-surface text-foreground shadow-[0_-12px_40px_-12px_hsl(var(--shadow-color)/0.35)]",
               side === "bottom" &&
-                "inset-x-0 bottom-0 max-h-[90dvh] overflow-y-auto rounded-t-2xl border-t border-border pb-[max(1.25rem,env(safe-area-inset-bottom))]",
+                "inset-x-0 bottom-0 max-h-[90dvh] overflow-y-auto rounded-t-xl border-t border-border pb-[max(1.25rem,env(safe-area-inset-bottom))]",
               side === "right" && "inset-y-0 right-0 h-full w-full max-w-md overflow-y-auto border-l border-border",
               className,
             )}
