@@ -22,6 +22,8 @@ export type SectionBoard = {
 export type Leaderboard = {
   overall: BoardEntry[];
   sections: SectionBoard[];
+  /** When any student's points last changed (seed or admin), or null if never. */
+  lastUpdated: Date | null;
 };
 
 type RankedRow = {
@@ -44,7 +46,7 @@ export async function getLeaderboard(): Promise<Leaderboard> {
   await connection();
   const db = getDb();
 
-  const [rows, sectionRows] = await Promise.all([
+  const [rows, sectionRows, [{ last }]] = await Promise.all([
     db.execute<RankedRow>(sql`
       with ranked as (
         select
@@ -67,6 +69,7 @@ export async function getLeaderboard(): Promise<Leaderboard> {
     db.execute<{ name: string; grade_level: number }>(
       sql`select name, grade_level from sections order by sort_order`,
     ),
+    db.execute<{ last: Date | string | null }>(sql`select max(updated_at) as last from students`),
   ]);
 
   const toEntry = (r: RankedRow, rank: number): BoardEntry => ({
@@ -88,5 +91,5 @@ export async function getLeaderboard(): Promise<Leaderboard> {
       .map((r) => toEntry(r, r.section_rank)),
   }));
 
-  return { overall, sections };
+  return { overall, sections, lastUpdated: last ? new Date(last) : null };
 }

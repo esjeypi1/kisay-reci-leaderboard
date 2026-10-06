@@ -223,7 +223,7 @@ Medal chips also carry an inset 1px ring in their own text color at 20% opacity.
 - **Title** (600, 1rem rising to 1.125rem at lg, -0.025em): section board titles, the admin header section name, the sheet title.
 - **Body** (400, 15px, relaxed leading, max 60ch): descriptive copy and row labels (15px rising to 17px at lg; 16 to 18px on the overall board).
 - **Label** (500 to 600, 0.875rem): buttons, chips, form labels, meta lines, column group labels ("Grade 9", "Boys") in Graphite.
-- **Numeral** (Geist Mono 600, tabular): rank chips (14 to 16px), class numbers, point totals (16 to 24px), the "As of" time.
+- **Numeral** (Geist Mono 600, tabular): rank chips (14 to 16px), class numbers, point totals (16 to 24px), the "Points last updated" timestamp.
 - **Numeral Lead** (Geist Mono 600, 1.5rem rising to 1.75rem): point totals for ranks 1 to 3 on the overall board, and admin roster totals (1.5rem).
 - **Unit** (400, 0.75rem, Graphite): the "pts" suffix that follows every total, baseline-aligned.
 
@@ -234,7 +234,7 @@ Medal chips also carry an inset 1px ring in their own text color at 20% opacity.
 
 ## Layout
 
-The public board is a centered container capped at 1400px with 16px gutters (24px from md). Below lg it is a single column: header, a sticky horizontal jump nav of chips (Overall plus the six sections, snap-scrolling, scrollbar hidden), the overall top 20 panel, then section panels (two columns from sm). From lg (1024px) the header collapses to one row (H1 and term left; meta, "As of", and Refresh right, bottom-aligned) and the body becomes a 12-column grid: overall board in 5 columns, section boards in 7, split into a Grade 9 column and a Grade 10 column. Panel stacks use 24px gaps (20px inside the section columns at lg; 32px between the two halves).
+The public board is a centered container capped at 1400px with 16px gutters (24px from md). Below lg it is a single column: header, a sticky horizontal jump nav of chips (Overall plus the six sections, snap-scrolling, scrollbar hidden), the overall top 20 panel, then section panels (two columns from sm). From lg (1024px) the header collapses to one row (H1 and term left; meta line and "Points last updated" right, bottom-aligned) and the body becomes a 12-column grid: overall board in 5 columns, section boards in 7, split into a Grade 9 column and a Grade 10 column. Panel stacks use 24px gaps (20px inside the section columns at lg; 32px between the two halves).
 
 The admin is a narrower phone-first column capped at 768px with a sticky header holding the section name, ghost links, and a horizontally scrolling chip row of sections. Roster groups ("Boys", "Girls") are bordered lists; bottom padding (112px) keeps the last row clear of toasts.
 
@@ -265,7 +265,7 @@ Two radii, applied by role: 8px on everything you tap or scan as a token (button
 Calm, outlined, and tactile; they press in rather than lift.
 - **Shape:** gently rounded (8px).
 - **Primary:** Classroom Cobalt fill, light text, weight 600, 48px tall in forms (44px on the error page), 20px horizontal padding.
-- **Secondary:** Paper Surface with a 1px Hairline border, Ink text, weight 500, 44px tall; border shifts to Hairline Strong on hover. Refresh carries a 16px bold Phosphor icon that spins while pending (motion-safe only). Form secondaries ("Save total", "-1") use a Hairline Strong outline on a transparent fill.
+- **Secondary:** Paper Surface with a 1px Hairline border, Ink text, weight 500, 44px tall; border shifts to Hairline Strong on hover. Form secondaries ("Save total", "-1") use a Hairline Strong outline on a transparent fill.
 - **Ghost:** transparent, Graphite text; hover fills Sunken Zinc and darkens text to Ink. Used for header links and icon buttons (close, edit, dismiss).
 - **Press:** every button scales to 0.98 on active (0.95 for the compact admin point buttons). Disabled drops to 35 to 60% opacity or Graphite text.
 - **Focus:** the global 2px cobalt outline at 2px offset.
@@ -293,7 +293,7 @@ Calm, outlined, and tactile; they press in rather than lift.
 The board's one recurring mark. A Geist Mono 600 tabular rank inside an 8px-radius chip, 28 to 36px tall, at least 40 to 48px wide. Ranks 1 to 3 take their medal wash and text plus an inset 20% ring; every other rank sits in Sunken Zinc with Graphite text. A tie prefixes a small "T" at 0.75em inside the chip, and the screen reader hears "tied for rank N".
 
 ### Board Row (signature)
-A three-column row: rank chip, label ("9-Kepler · " in Graphite, class number in Mono 600 Ink), and the right-aligned total with its "pts" unit. On the overall board, the section name of medal rows turns Ink and their totals step up to Numeral Lead. Rows enter once in rank order (520ms rise of 6px with fade, `cubic-bezier(0.16, 1, 0.3, 1)`, staggered 28ms per row after 80ms, capped at the ninth row so the board settles in under 900ms) while totals count up from zero over 600ms on the same curve. After Refresh, changed totals animate from their old value over 600ms. Reduced motion renders final values with no movement.
+A three-column row: rank chip, label ("9-Kepler · " in Graphite, class number in Mono 600 Ink), and the right-aligned total with its "pts" unit. On the overall board, the section name of medal rows turns Ink and their totals step up to Numeral Lead. Rows enter once in rank order (520ms rise of 6px with fade, `cubic-bezier(0.16, 1, 0.3, 1)`, staggered 28ms per row after 80ms, capped at the ninth row so the board settles in under 900ms) while totals count up from zero over 600ms on the same curve. If totals change while the page is open (a client refresh), they animate from their old value over 600ms. Reduced motion renders final values with no movement.
 
 ### Sheet and Toast (adapted Lightswind)
 - **Sheet:** bottom sheet on Paper Surface with 12px top corners and a Hairline top border, spring entrance (damping 32, stiffness 380), floating 16px above the bottom with full 12px radius from sm. Traps focus, closes on Escape or scrim, and fades only under reduced motion.

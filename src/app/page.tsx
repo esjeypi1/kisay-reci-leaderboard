@@ -1,17 +1,18 @@
 import { OverallBoard } from "@/components/leaderboard/overall-board";
-import { RefreshButton } from "@/components/leaderboard/refresh-button";
 import { SectionBoard, sectionAnchor } from "@/components/leaderboard/section-board";
 import { getLeaderboard, OVERALL_CUTOFF, SECTION_CUTOFF } from "@/lib/leaderboard";
 
-const timeFormat = new Intl.DateTimeFormat("en-PH", {
+const updatedFormat = new Intl.DateTimeFormat("en-PH", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
   hour: "numeric",
   minute: "2-digit",
   timeZone: "Asia/Manila",
 });
 
 export default async function Home() {
-  const { overall, sections } = await getLeaderboard();
-  const asOf = timeFormat.format(new Date());
+  const { overall, sections, lastUpdated } = await getLeaderboard();
   const empty = overall.length === 0;
   const grades = [...new Set(sections.map((s) => s.gradeLevel))].map((grade) => ({
     grade,
@@ -38,12 +39,17 @@ export default async function Home() {
           <p className="hidden text-sm text-muted-foreground lg:block">
             Top {OVERALL_CUTOFF} overall · Top {SECTION_CUTOFF} in each of the {sections.length} sections
           </p>
-          <div className="flex items-center gap-3">
+          {lastUpdated && (
             <p className="text-sm text-muted-foreground">
-              As of <time className="font-mono font-medium text-foreground tabular-nums">{asOf}</time>
+              Points last updated{" "}
+              <time
+                dateTime={lastUpdated.toISOString()}
+                className="font-mono font-medium text-foreground tabular-nums"
+              >
+                {updatedFormat.format(lastUpdated)}
+              </time>
             </p>
-            <RefreshButton />
-          </div>
+          )}
         </div>
       </header>
 
